@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -28,6 +28,28 @@ const Index = () => {
     document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set(prev).add(entry.target.id));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-border z-50">
@@ -36,7 +58,7 @@ const Index = () => {
             <h1 className="text-2xl font-bold text-primary">FrankRG</h1>
             <nav className="hidden md:flex gap-8">
               <a href="#about" className="text-foreground hover:text-primary transition-colors">О проекте</a>
-              <a href="#work" className="text-foreground hover:text-primary transition-colors">Как работать</a>
+              <a href="#stats" className="text-foreground hover:text-primary transition-colors">Статистика</a>
               <a href="#benefits" className="text-foreground hover:text-primary transition-colors">Преимущества</a>
               <a href="#contact" className="text-foreground hover:text-primary transition-colors">Контакты</a>
             </nav>
@@ -44,36 +66,78 @@ const Index = () => {
         </div>
       </header>
 
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-5xl text-center">
-          <div className="inline-block mb-4 px-4 py-2 bg-accent/10 rounded-full">
-            <span className="text-accent font-semibold">Станьте оценщиком качества</span>
+      <section className="pt-32 pb-20 px-6 animate-fade-in">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-block mb-4 px-4 py-2 bg-accent/10 rounded-full">
+                <span className="text-accent font-semibold">Станьте оценщиком качества</span>
+              </div>
+              <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+                Работайте тайным покупателем в банках
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                Оценивайте качество обслуживания финансовых учреждений и зарабатывайте до 50 000 рублей в месяц
+              </p>
+              <Button 
+                onClick={scrollToForm}
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg"
+              >
+                Оставить заявку
+                <Icon name="ArrowRight" size={20} className="ml-2" />
+              </Button>
+            </div>
+            <div className="relative">
+              <img 
+                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/862bf512-2764-42e5-9d94-11908e86ed03.jpg"
+                alt="Профессионал в банке"
+                className="rounded-2xl shadow-2xl w-full h-auto"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-accent text-white p-6 rounded-xl shadow-lg">
+                <p className="text-3xl font-bold">50 000₽</p>
+                <p className="text-sm">в месяц</p>
+              </div>
+            </div>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-            Работайте тайным покупателем в банках
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Оценивайте качество обслуживания финансовых учреждений и зарабатывайте до 50 000 рублей в месяц
-          </p>
-          <Button 
-            onClick={scrollToForm}
-            size="lg" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg"
-          >
-            Оставить заявку
-            <Icon name="ArrowRight" size={20} className="ml-2" />
-          </Button>
         </div>
       </section>
 
-      <section id="about" className="py-20 px-6 bg-muted/30">
+      <section 
+        id="stats" 
+        ref={(el) => (sectionRefs.current['stats'] = el)}
+        className={`py-20 px-6 bg-primary text-primary-foreground ${visibleSections.has('stats') ? 'animate-fade-in-up' : 'opacity-0'}`}
+      >
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-3 gap-12 text-center">
+            <div>
+              <p className="text-5xl font-bold mb-2">2500+</p>
+              <p className="text-xl text-primary-foreground/80">Проведено проверок</p>
+            </div>
+            <div>
+              <p className="text-5xl font-bold mb-2">180+</p>
+              <p className="text-xl text-primary-foreground/80">Активных сотрудников</p>
+            </div>
+            <div>
+              <p className="text-5xl font-bold mb-2">98%</p>
+              <p className="text-xl text-primary-foreground/80">Довольных клиентов</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section 
+        id="about" 
+        ref={(el) => (sectionRefs.current['about'] = el)}
+        className={`py-20 px-6 ${visibleSections.has('about') ? 'animate-fade-in-up' : 'opacity-0'}`}
+      >
         <div className="container mx-auto max-w-6xl">
           <h3 className="text-3xl md:text-4xl font-bold text-center mb-4">О проекте FrankRG</h3>
           <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
             Мы помогаем банкам повышать уровень сервиса через независимую оценку качества обслуживания
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-none shadow-sm hover:shadow-md transition-shadow">
+            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
               <CardContent className="pt-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Icon name="FileCheck" size={32} className="text-primary" />
@@ -85,7 +149,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-none shadow-sm hover:shadow-md transition-shadow">
+            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
               <CardContent className="pt-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Icon name="Building2" size={32} className="text-primary" />
@@ -97,7 +161,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-none shadow-sm hover:shadow-md transition-shadow">
+            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
               <CardContent className="pt-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Icon name="ClipboardList" size={32} className="text-primary" />
@@ -112,7 +176,45 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="benefits" className="py-20 px-6">
+      <section className="py-20 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <img 
+                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/1375f31e-f810-46a8-8fae-4b99cf2253c7.jpg"
+                alt="Интерьер банка"
+                className="rounded-2xl shadow-xl w-full h-auto"
+              />
+            </div>
+            <div>
+              <h3 className="text-3xl md:text-4xl font-bold mb-6">Профессиональная среда</h3>
+              <p className="text-lg text-muted-foreground mb-6">
+                Работайте с ведущими банками России, получайте доступ к закрытым методикам оценки и развивайтесь в сфере финансовых услуг.
+              </p>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <Icon name="CheckCircle" size={24} className="text-accent flex-shrink-0 mt-1" />
+                  <span className="text-muted-foreground">Обучение работе с критериями оценки качества</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="CheckCircle" size={24} className="text-accent flex-shrink-0 mt-1" />
+                  <span className="text-muted-foreground">Поддержка на всех этапах проверки</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="CheckCircle" size={24} className="text-accent flex-shrink-0 mt-1" />
+                  <span className="text-muted-foreground">Возмещение всех расходов на проверку</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section 
+        id="benefits" 
+        ref={(el) => (sectionRefs.current['benefits'] = el)}
+        className={`py-20 px-6 ${visibleSections.has('benefits') ? 'animate-fade-in-up' : 'opacity-0'}`}
+      >
         <div className="container mx-auto max-w-6xl">
           <h3 className="text-3xl md:text-4xl font-bold text-center mb-4">Преимущества работы</h3>
           <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
@@ -152,7 +254,38 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="contact" className="py-20 px-6 bg-muted/30">
+      <section className="py-20 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-3xl md:text-4xl font-bold mb-6">Удалённая работа с достойным доходом</h3>
+              <p className="text-lg text-muted-foreground mb-6">
+                Выполняйте проверки в удобное время, получайте вознаграждение за каждую выполненную задачу и стройте карьеру в сфере качества обслуживания.
+              </p>
+              <div className="flex items-center gap-4 p-4 bg-accent/10 rounded-xl">
+                <Icon name="TrendingUp" size={32} className="text-accent" />
+                <div>
+                  <p className="font-semibold">Рост дохода</p>
+                  <p className="text-sm text-muted-foreground">От 15 000₽ до 50 000₽ в месяц</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img 
+                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/fd566a4b-496a-4a18-a5e5-8cbe15c2be42.jpg"
+                alt="Работа за компьютером"
+                className="rounded-2xl shadow-xl w-full h-auto"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section 
+        id="contact" 
+        ref={(el) => (sectionRefs.current['contact'] = el)}
+        className={`py-20 px-6 ${visibleSections.has('contact') ? 'animate-scale-in' : 'opacity-0'}`}
+      >
         <div className="container mx-auto max-w-2xl">
           <div className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold mb-4">Готовы начать?</h3>
@@ -234,8 +367,8 @@ const Index = () => {
               <a href="#about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
                 О проекте
               </a>
-              <a href="#work" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                Как работать
+              <a href="#stats" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
+                Статистика
               </a>
               <a href="#benefits" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
                 Преимущества
