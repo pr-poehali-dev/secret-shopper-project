@@ -55,7 +55,7 @@ const Index = () => {
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-border z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-primary">FrankRG</h1>
+            <h1 className="text-2xl font-bold text-primary">BankView</h1>
             <nav className="hidden md:flex gap-8">
               <a href="#about" className="text-foreground hover:text-primary transition-colors">О проекте</a>
               <a href="#stats" className="text-foreground hover:text-primary transition-colors">Статистика</a>
@@ -90,11 +90,11 @@ const Index = () => {
             </div>
             <div className="relative">
               <img 
-                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/862bf512-2764-42e5-9d94-11908e86ed03.jpg"
-                alt="Профессионал в банке"
+                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/8b7ca32e-6fb8-4d53-84e2-8d35bdcab26f.jpg"
+                alt="Современный банк"
                 className="rounded-2xl shadow-2xl w-full h-auto"
               />
-              <div className="absolute -bottom-6 -left-6 bg-accent text-white p-6 rounded-xl shadow-lg">
+              <div className="absolute -bottom-6 -left-6 bg-secondary text-white p-6 rounded-xl shadow-lg">
                 <p className="text-3xl font-bold">50 000₽</p>
                 <p className="text-sm">в месяц</p>
               </div>
@@ -132,14 +132,14 @@ const Index = () => {
         className={`py-20 px-6 ${visibleSections.has('about') ? 'animate-fade-in-up' : 'opacity-0'}`}
       >
         <div className="container mx-auto max-w-6xl">
-          <h3 className="text-3xl md:text-4xl font-bold text-center mb-4">О проекте FrankRG</h3>
+          <h3 className="text-3xl md:text-4xl font-bold text-center mb-4">О проекте BankView</h3>
           <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
             Мы помогаем банкам повышать уровень сервиса через независимую оценку качества обслуживания
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1 bg-gradient-to-br from-primary/5 to-primary/10">
               <CardContent className="pt-8 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Icon name="FileCheck" size={32} className="text-primary" />
                 </div>
                 <h4 className="text-xl font-semibold mb-4">Подготовка к проверке</h4>
@@ -149,10 +149,10 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1 bg-gradient-to-br from-secondary/5 to-secondary/10">
               <CardContent className="pt-8 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Icon name="Building2" size={32} className="text-primary" />
+                <div className="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Icon name="Building2" size={32} className="text-secondary" />
                 </div>
                 <h4 className="text-xl font-semibold mb-4">Проведение проверки</h4>
                 <p className="text-muted-foreground">
@@ -161,10 +161,10 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+            <Card className="border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1 bg-gradient-to-br from-accent/5 to-accent/10">
               <CardContent className="pt-8 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Icon name="ClipboardList" size={32} className="text-primary" />
+                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Icon name="ClipboardList" size={32} className="text-accent" />
                 </div>
                 <h4 className="text-xl font-semibold mb-4">Составление отчёта</h4>
                 <p className="text-muted-foreground">
@@ -181,8 +181,8 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img 
-                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/1375f31e-f810-46a8-8fae-4b99cf2253c7.jpg"
-                alt="Интерьер банка"
+                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/56a4d00e-ef47-434e-97b0-0c2a2b802050.jpg"
+                alt="Рабочее место"
                 className="rounded-2xl shadow-xl w-full h-auto"
               />
             </div>
@@ -222,8 +222,8 @@ const Index = () => {
           </p>
           <div className="grid md:grid-cols-3 gap-12">
             <div className="text-center">
-              <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Icon name="GraduationCap" size={36} className="text-accent" />
+              <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <Icon name="GraduationCap" size={36} className="text-white" />
               </div>
               <h4 className="text-xl font-semibold mb-4">Развитие навыков</h4>
               <p className="text-muted-foreground">
@@ -232,8 +232,8 @@ const Index = () => {
             </div>
 
             <div className="text-center">
-              <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Icon name="Wallet" size={36} className="text-accent" />
+              <div className="w-20 h-20 bg-gradient-to-br from-secondary to-secondary/60 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <Icon name="Wallet" size={36} className="text-white" />
               </div>
               <h4 className="text-xl font-semibold mb-4">Достойная оплата</h4>
               <p className="text-muted-foreground">
@@ -242,8 +242,8 @@ const Index = () => {
             </div>
 
             <div className="text-center">
-              <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Icon name="Clock" size={36} className="text-accent" />
+              <div className="w-20 h-20 bg-gradient-to-br from-accent to-accent/60 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <Icon name="Clock" size={36} className="text-white" />
               </div>
               <h4 className="text-xl font-semibold mb-4">Гибкий график</h4>
               <p className="text-muted-foreground">
@@ -262,8 +262,10 @@ const Index = () => {
               <p className="text-lg text-muted-foreground mb-6">
                 Выполняйте проверки в удобное время, получайте вознаграждение за каждую выполненную задачу и стройте карьеру в сфере качества обслуживания.
               </p>
-              <div className="flex items-center gap-4 p-4 bg-accent/10 rounded-xl">
-                <Icon name="TrendingUp" size={32} className="text-accent" />
+              <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl border-2 border-primary/20">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                  <Icon name="TrendingUp" size={24} className="text-white" />
+                </div>
                 <div>
                   <p className="font-semibold">Рост дохода</p>
                   <p className="text-sm text-muted-foreground">От 15 000₽ до 50 000₽ в месяц</p>
@@ -272,8 +274,8 @@ const Index = () => {
             </div>
             <div>
               <img 
-                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/fd566a4b-496a-4a18-a5e5-8cbe15c2be42.jpg"
-                alt="Работа за компьютером"
+                src="https://cdn.poehali.dev/projects/1d79ec1f-aaf2-4f91-9b9a-46dc5668886a/files/caba7cf1-3012-4ba0-b1e8-51f07c98175b.jpg"
+                alt="Финансовые инструменты"
                 className="rounded-2xl shadow-xl w-full h-auto"
               />
             </div>
@@ -360,7 +362,7 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
-              <h5 className="text-2xl font-bold mb-2">FrankRG</h5>
+              <h5 className="text-2xl font-bold mb-2">BankView</h5>
               <p className="text-primary-foreground/80">Профессиональная оценка качества банковских услуг</p>
             </div>
             <div className="flex gap-6">
@@ -379,7 +381,7 @@ const Index = () => {
             </div>
           </div>
           <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-primary-foreground/60">
-            <p>© 2026 FrankRG. Все права защищены.</p>
+            <p>© 2026 BankView. Все права защищены.</p>
           </div>
         </div>
       </footer>
